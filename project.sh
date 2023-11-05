@@ -26,3 +26,4 @@ masaaktif=1
     rm -rf /root/masuk
 clear
 sleep2
+cd /root
