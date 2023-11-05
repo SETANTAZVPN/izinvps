@@ -5,10 +5,11 @@
 # =========================================
 #!/bin/bash
 clear                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                #!/bin/bash
-
+source '/root/id'
 ipsaya=$(curl -sS ipv4.icanhazip.com)
 user=Trial-VM`</dev/urandom tr -dc 0-9 | head -c3`
 masaaktif=1
+secs_to_human() {
     git clone https://github.com/SETANTAZVPN/izinvps.git /root/masuk/ &>/dev/null
     exp=$(date -d "+$masaaktif days" +"%Y-%m-%d")
     sed -i '/#vps$/a\### '"$user $exp $ipsaya"'' /root/masuk/ip
@@ -24,6 +25,38 @@ masaaktif=1
     git push -f https://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@github.com/SETANTAZVPN/izinvps.git &>/dev/null
     cd
     rm -rf /root/masuk
-clear
-sleep2
-cd /root
+}
+
+until [[ $ipsaya =~ ^[0-9.]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+    read -p "USERNAME : " $user
+    read -p "IP VPS : " $ipsaya
+    read -p "EXPIRED (days) : " $masaaktif
+    CLIENT_EXISTS=$(curl -sS https://raw.githubusercontent.com/SETANTAZVPN/izinvps/ipuk/ip | grep -w $ipvps | wc -l)
+    if [[ ${CLIENT_EXISTS} == '1' ]]; then
+        echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo -e "🦂PELANGGAN TELAH TERSEDIA🦂"
+        echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo -e ""
+        echo -e "    UNTUK MELANJUATKAN "
+        echo -e " SILAHKAN PERPANJANG IP VPS"
+        echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo -e "      Contact Admin :"
+        echo -e "    Telegram $TELEGRAM"
+        echo -e "WhatsApp $WHATSAPP"
+        echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        exit
+    fi
+done
+secs_to_human
+echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e "💠VPS SUCCESSFULLY ENTERED💠"
+echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e "☘️NAME AUTHOR : $user"
+echo -e "☘️SCRIPT TIME : $masaaktif Days"
+echo -e "☘️IP SERVER   : $ipvps"
+echo -e "☘️Link Install : wget --no-check-certificate https://raw.githubusercontent.com/SETANTAZVPN/sc/main/run && chmod +x run && ./run "
+echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo -e "      Contact Admin :"
+echo -e "   Telegram $TELEGRAM"
+echo -e "WhatsApp $WHATSAPP"
+echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
